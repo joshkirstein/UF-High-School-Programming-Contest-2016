@@ -1,0 +1,55 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[left=0.85in,right=0.85in,top=0.80in,bottom=0.80in]{geometry}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{fmtcount}
+\usepackage{datetime}
+\usepackage[pdftex]{graphicx}
+\usepackage{fancyhdr}
+\usepackage{color}
+\usepackage{fancyvrb}
+\usepackage{tabu}
+\usepackage{xcolor}
+\begin{document}
+\begin{center}
+{\Huge Problem ID: multiply}\vspace{2 mm} \\	% Problem Letter
+{\huge RSA Cryptosystem}\vspace{2 mm} \\	% Problem Name
+
+\setcounter{page}{12}
+\end{center}
+\large{
+Your friends Alice and Bob are very secretive people. Whenever they send a message to each other they encrypt it using the \emph{RSA} algorithm. For the algorithm to work, Alice and Bob must each pick two very large prime numbers $p$ and $q$ and from these two numbers they can follow the RSA procedure to generate their own public-key and private-key.
+\\\\
+To send an encrypted message to Alice, Bob would have to take her public-key and encrypt his message with it; the only way to decrypt this message is with the private-key that Alice has. One part of the public-key that Alice releases is the cryptographic modulus: $n = p*q$. Alice and Bob have decided to enlist your efforts to help them compute this cryptographic modulus. 
+\\\\
+Alice and Bob will provide two numbers, $p$ and $q$ ($1 \leq p$, $q$ $\leq 10^{1000}$). Fortunately, they aren't very good at math and don't really know what prime numbers are; instead they will provide you numbers of a very specific form. Both numbers will be a single non-zero digit followed by zeros (it's possible for there to be no zeros following the non-zero digit, but there will always be a non-zero digit that starts).}
+\vspace{7mm}\\
+\large{\bf{Input}}\vspace{2mm}\\
+The input will begin with a line containing a single positive integer $t$ representing the number of modulus values you must compute. Following will be $t$ lines each containing two space-separated integers $p$ and $q$ ($1 \leq p$, $q$ $\leq 10^{1000}$).
+\vspace{3mm}\\
+\large{\bf{Output}}\vspace{2mm}\\
+For each test case, print the modulus ($p*q$) on its own line.
+\vspace{5mm}\\
+\bf{Sample Input} \hspace{44mm} \bf{Sample Output}\vspace{1mm}\\
+\begin{tabu*} to 425pt {|X[0r]|X[0l]|}
+\tabucline-
+\vspace{-\baselineskip} %needs to be placed here
+\begin{Verbatim}
+4
+5 9
+700000 700000
+10 1
+1000000 9
+\end{Verbatim}
+&
+\vspace{-\baselineskip} %needs to be placed here
+\begin{Verbatim}
+45
+490000000000
+10
+9000000
+\end{Verbatim}
+\\
+\tabucline-
+\end{tabu*}
+\end{document}

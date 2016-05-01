@@ -1,0 +1,55 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[left=0.90in,right=0.90in,top=0.80in,bottom=0.80in]{geometry}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{fmtcount}
+\usepackage{datetime}
+\usepackage[pdftex]{graphicx}
+\usepackage{fancyhdr}
+\usepackage{color}
+\usepackage{fancyvrb}
+\usepackage{tabu}
+
+\usepackage{xcolor}
+\definecolor{lightb}{RGB}{217,224,250}
+\begin{document}
+
+\setcounter{page}{2}
+
+\begin{center}
+   {\Huge Problem ID: greater}\vspace{2 mm} \\			% Problem Letter
+   {\huge Which is Greater?}\vspace{2 mm} \\		% Problem Name
+\end{center}
+Given two numbers, determine whether the first one is larger than the second one.
+\vspace{7mm}\\
+\large{\bf{Input}}\vspace{2mm}\\
+The input will begin with a line containing a single positive integer, $t$, representing the number of test cases to process. Following will be $t$ lines each specifying a test case. Each test case consists of two numbers, $x$ and $y$ (both are guaranteed to fit in a signed $64$ bit integer), which are separated by a single space.
+\vspace{3mm}\\
+\large{\bf{Output}}\vspace{2mm}\\
+For each test case, if the first number is greater than the second print ``Yes", otherwise print ``No". Each answer should be printed on a separate line.
+\vspace{5mm}\\
+\bf{Sample Input} \hspace{44mm} \bf{Sample Output}\vspace{1mm}\\
+\begin{tabu*} to 425pt {|X[0r]|X[0l]|}
+\tabucline-
+\vspace{-\baselineskip} %needs to be placed here
+\begin{Verbatim}
+3
+1 19
+4 4
+23 14
+\end{Verbatim}
+&
+\vspace{-\baselineskip} %needs to be placed here
+\begin{Verbatim}
+No
+No
+Yes
+\end{Verbatim}
+\\
+\tabucline-
+\end{tabu*}
+
+
+
+\end{document}

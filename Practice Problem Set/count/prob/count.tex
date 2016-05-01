@@ -1,0 +1,61 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[left=0.90in,right=0.90in,top=0.80in,bottom=0.80in]{geometry}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{fmtcount}
+\usepackage{datetime}
+\usepackage[pdftex]{graphicx}
+\usepackage{fancyhdr}
+\usepackage{color}
+\usepackage{fancyvrb}
+\usepackage{tabu}
+
+\usepackage{xcolor}
+
+\begin{document}
+
+\begin{center}
+   {\Huge Problem ID: count}\vspace{2 mm} \\			% Problem Letter
+   {\huge Count the Vowels}\vspace{2 mm} \\		% Problem Name
+\end{center}
+Given lines of text, count the vowels! For this problem, the only vowels are A, E, I, O, and U. No other letters will be considered vowels for the purposes of this problem.
+\vspace{7mm}\\
+\large{\bf{Input}}\vspace{2mm}\\
+The input will begin with a line containing a single positive integer, $t$, representing the number of test cases to process. Following will be $t$ lines each specifying a test case. Each test case is specified by a single line of text. There will only be letters, numbers, printable symbols, and spaces. Each line will have at least 1 and at most 80 characters, and each line is guaranteed to have at least one non-whitespace character.
+\vspace{3mm}\\
+\large{\bf{Output}}\vspace{2mm}\\
+For each test case, print the number of vowels on its own line.
+\vspace{5mm}\\
+\bf{Sample Input} \vspace{1mm}\\
+\begin{tabu*} to 385pt {|X[0r]|}
+\tabucline-
+\vspace{-\baselineskip} %needs to be placed here
+\begin{Verbatim}
+4
+This is a test.
+How many vowels in "sky"?
+Are you sure you can handle both CAPITAL and lower case?
+D. J. Pike flung Q. V. Schwartz my box.
+\end{Verbatim}
+\\
+\tabucline-
+\end{tabu*}
+\vspace{5mm}\\
+\bf{Sample Output} \vspace{1mm}\\
+\begin{tabu*} to 385pt {|X[0r]|}
+\tabucline-
+\vspace{-\baselineskip} %needs to be placed here
+\begin{Verbatim}
+4
+5
+20
+5
+\end{Verbatim}
+\\
+\tabucline-
+\end{tabu*}
+
+
+
+\end{document}

@@ -1,0 +1,67 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[left=0.85in,right=0.85in,top=0.80in,bottom=0.80in]{geometry}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{fmtcount}
+\usepackage{datetime}
+\usepackage[pdftex]{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{fancyhdr}
+\usepackage{color}
+\usepackage{fancyvrb}
+
+\usepackage{tabu}
+\usepackage{xcolor}\newcommand{\squeezeup}{\vspace{-7mm}}
+\begin{document}
+\begin{center}
+{\Huge Problem ID: rgb}\vspace{2 mm} \\	% Problem Letter
+{\huge RGB Mixing}\vspace{2 mm} \\	% Problem Name
+\end{center}
+\setcounter{page}{13}
+\large{
+On many systems, colors are represented using the \emph{RGB} color scheme. The basic idea behind this scheme is that every color is composed of a mixture of the colors red, green, and blue. More specifically, each color is assigned a value between $0-255$ representing the amount of either red, green, or blue that is part of the color. The color violet is represented by the RGB values R: $200$ G: $100$ B: $255$. \\\\
+If we're given two colors with their associated RGB values (lets say color 1 has $R_1, G_1, B_1$ and color 2 has $R_2, G_2, B_2$) we can add them together to create a new color with RGB values $R_1+R_2$, $G_1+G_2$, $B_1+B_2$ (of course, their values can't exceed 255).\\\\
+Suppose you're given a set of $N$ colors which you can use to compose new colors with. Can you determine if it's possible to create a color with RGB values $R$, $G$, and $B$?
+}
+\vspace{7mm}\\
+\large{\bf{Input}}\vspace{2mm}\\
+The input will begin with a line containing a single positive integer, $t$, representing the number of test cases to process. Each test case will begin with a single line containing an integer $N$ ($1 \leq N \leq 10$). The next line will contain three space-separated integers $R$, $G$, and $B$ ($0 \leq R, G, B \leq 255$). Following will be $N$ lines, the $i$-th of which will be of the form ``$R_i$ $G_i$ $B_i$" which corresponds to the $i$-th color ($0 \leq R_i, G_i, B_i \leq 255$).\vspace{3mm}\\
+\large{\bf{Output}}\vspace{2mm}\\
+For each test case print ``Yes" if you can create the color using the component colors provided; ``No" otherwise. Each color may only be used once.
+\vspace{10mm}\\
+{\bf{Sample Input}} \hspace{52mm} {\bf{Sample Output}}\vspace{1mm}\\
+\begin{tabu*} to 475pt {|X[0r]|X[0l]|}
+\tabucline-
+\vspace{-\baselineskip} %needs to be placed here
+\begin{Verbatim}
+3
+2
+255 255 255
+150 150 150
+175 175 175
+3
+127 239 119
+100 200 100
+12 15 19
+15 24 0
+2
+200 100 255
+200 100 250
+5 5 5
+\end{Verbatim}
+&
+\vspace{-\baselineskip} %needs to be placed here
+\begin{Verbatim}
+Yes
+Yes
+No
+\end{Verbatim}
+\\
+\tabucline-
+\end{tabu*}
+\vspace{10mm}
+{
+Note: For the first test case, we mix together both of the colors provided. Since the sum of each individual component is maxed out by 255, summing these two colors together gives us the goal value of 255 for each component.
+}
+\end{document}

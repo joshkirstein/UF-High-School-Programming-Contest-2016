@@ -1,0 +1,59 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[left=0.85in,right=0.85in,top=0.80in,bottom=0.80in]{geometry}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{fmtcount}
+\usepackage{datetime}
+\usepackage[pdftex]{graphicx}
+\usepackage{fancyhdr}
+\usepackage{color}
+\usepackage{fancyvrb}
+\usepackage{tabu}
+\usepackage{xcolor}\newcommand{\squeezeup}{\vspace{-7mm}}
+\begin{document}
+\begin{center}
+{\Huge Problem ID: maxima}\vspace{2 mm} \\	% Problem Letter
+{\huge Left-to-Right Maxima}\vspace{2 mm} \\	% Problem Name
+\end{center}
+\setcounter{page}{11}
+\large{
+A \emph{permutation} of length $N$ is an ordering of the numbers $1, 2, ..., N$. For example, $321$ and $213$ are both permutations of length $3$. A number in a permutation that's greater than everything to its left is called a \emph{left-to-right maxima}. The permutation $213$ has two left-to-right maxima ($2$ and $3$), but the permutation $321$ only has one ($3$).\\\\
+We can put a permutation into \emph{canonical cycle form} by breaking it into groups starting at each left-to-right maxima. The canonical cycle form of $213$ is then $(21) (3)$ ($2$ and $1$ are in the same group, $3$ is in a group by itself). Here's another more complicated permutation written in canonical cycle form (note that the left-to-right maxima are all bolded):
+$$312548976  \enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace ({\bf{3}}12)({\bf{5}}4)({\bf{8}})({\bf{9}}76)$$
+The canonical cycles forms of length 3 permutations are:
+$$123   \hspace{-6mm}\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace ({\bf{1}})({\bf{2}})({\bf{3}})$$
+$$132  \hspace{-1mm}\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace ({\bf{1}})({\bf{3}}2)$$
+$$312   \enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace ({\bf{3}}12)$$
+$$321   \enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace ({\bf{3}}21)$$
+$$213   \hspace{-3.5mm}\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace ({\bf{2}}1)({\bf{3}})$$
+$$231   \hspace{-3.5mm}\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace\enspace ({\bf{2}})({\bf{3}}1)$$
+For this problem, we would like to know how many permutations of length $N$ have both $i$ and $j$ in the same group.
+}
+\vspace{7mm}\\
+\large{\bf{Input}}\vspace{2mm}\\
+The input will begin with a line containing a single positive integer, $t$, representing the number of test cases to process. Each test case will consist of three space-separated integers $N$, $i$, and $j$ ($1 \leq i, j \leq N \leq 19$).
+\vspace{3mm}\\
+\large{\bf{Output}}\vspace{2mm}\\
+For each test case print the number of permutations of length $N$ that have $i$ and $j$ in the same groups when put into canonical cycle form, on its own line.
+\vspace{5mm}\\
+\bf{Sample Input} \hspace{52mm} \bf{Sample Output}\vspace{1mm}\\
+\begin{tabu*} to 475pt {|X[0r]|X[0l]|}
+\tabucline-
+\vspace{-\baselineskip} %needs to be placed here
+\begin{Verbatim}
+2
+2 1 2
+3 1 1
+4 3 4
+\end{Verbatim}
+&
+\vspace{-\baselineskip} %needs to be placed here
+\begin{Verbatim}
+1
+6
+12
+\end{Verbatim}
+\\
+\tabucline-
+\end{tabu*}
+\end{document}

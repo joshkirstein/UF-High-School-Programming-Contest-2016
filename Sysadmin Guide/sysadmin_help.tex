@@ -1,0 +1,128 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[left=0.90in,right=0.90in,top=0.80in,bottom=0.80in]{geometry}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{fmtcount}
+\usepackage{datetime}
+\usepackage[pdftex]{graphicx}
+\usepackage{fancyhdr}
+\usepackage{color}
+\usepackage{fancyvrb}
+\usepackage{tabu}
+
+\usepackage{xcolor}
+\lstset{language=Java,
+basicstyle=\ttfamily,
+frame=single,
+tabsize=4}
+\begin{document}
+
+\begin{center}
+   {\Huge How to be the Sysadmin for HSPC}\vspace{2 mm} \\
+   {\large Written by Joshua Kirstein (\emph{joshkirstein@aol.com})} \\
+   {\Huge THIS IS NOT FINISHED}
+\end{center}
+
+\section{Introduction}
+In this document we'll outline pretty much every step you need to take in order to fully set up everything computer related for a high school programming contest (HSPC). This setup was specifically used at the University of Florida's HSPC. At a high level, the whole setup consists of about four sets of related things: \\
+\\
+(1) webserver+DNS \\
+(2) judge machines \\
+(3) contestant machines \\
+(4) network\\
+
+\noindent
+The network connects the webserver+DNS, judge machines, and contestant machines together. The webserver hosts the contest site on the local network (where each contestant machine logs in and submits problems). When a contestant machine submits a solution to the webserver, the webserver passes it off to one of the judge machines so it can be graded by them (programs are tested against the secret test data). The DNS exists so that contestants don't have to type an IP to get to the contest website, instead they can just type something like `uf.hspc' in their browser. 
+
+\section{Network}
+Out of all of the pieces required, the network is probably the easiest to set up. The entire network is hosted on a single router (in our case it was some cheap \$35 linksys). **The computer that hosts the webserver+dns needs to be securely connected to the router. Make sure that contestants or volunteers that are walking around can't easily trip over these cables, because if they go down then the whole contest is down; in our case, we taped down literally every cable that could be walked over and also taped the router to the table so it wasn't loose.** Since there will be around $50+$ contestants as well as $5+$ judge machines and most cheapo routers only have 4 ethernet cable slots, we need to use some additional hardware. For this case, we have about 4 Cisco switches (each with about 25 ethernet slots). The judge machines and contestant machines must be connected to exactly one of these switches. Each switch, in turn, is directly connected to the router. Luckily, all of the switches are properly configured already and so all you need to do is plug everything in and it'll function as a fully working LAN. If HSPC continues to scale, it's possible that you may need to \emph{chain} switches or just buy a new router that has $5+$ ethernet ports.\\\\
+Finally, everything connected to this network has a \emph{fixed} IP address. This makes life easier for a lot of things. Additionally, the IPs are fixed through the router's DHCP table --- every computer on the network should have their wireless card IP setting configured to `Automatic'. The scheme I used for IP assignment was the following:\\\\
+(1) webserver+DNS -- 192.168.1.100 \\
+(2) judge machines -- 192.168.1.101 through 192.168.1.109 (inclusive) \\
+(3) contestant machines -- 192.168.1.110 through 192.168.1.255 (which is large enough for any size contest that's reasonable) \\\\
+After setting up the network make sure every machine gets its proper IP address.
+
+\section{Webserver+DNS}
+The contest software that we use is called `DOMjudge'. DOMjudge is built on the LAMP stack, so you'll need to be familiar with Apache and MySQL (although these installation instructions will probably be sufficient). Note: The OS that we used on every machine was Ubuntu 14.04.03.
+\subsection{Installing the Webserver}
+First download domjudge 5.1.0 and unzip it:
+\begin{verbatim}
+cd ~/Desktop
+curl https://www.domjudge.org/releases/domjudge-5.1.0.tar.gz > domjudge-5.1.0.tar.gz
+tar -xvf domjudge-5.1.0.tar.gz
+\end{verbatim}
+Okay now we're ready to start installing software. First, the requirements... A lot of these requirements are for DOMjudge, some are for us (bind9, ssh). Make sure to install phpmyadmin/mysql with passwords that you can remember.
+\begin{verbatim}
+sudo apt-get update
+sudo apt-get install -y gcc g++ make zip unzip mysql-server \
+        apache2 php5 php5-cli libapache2-mod-php5 \
+        php5-gd php5-curl php5-mysql php5-json \
+        bsdmainutils phpmyadmin ntp \
+        linuxdoc-tools linuxdoc-tools-text \
+        groff texlive-latex-recommended texlive-latex-extra \
+        texlive-fonts-recommended texlive-lang-dutch
+sudo apt-get install -y libcurl4-gnutls-dev libjsoncpp-dev libmagic-dev
+sudo apt-get install -y openssh-server openssh-client
+sudo apt-get install -y bind9 dnsutils bind9-doc
+\end{verbatim}
+Time to install the webserver. DOMjudge will live in the directory `~/domserver/'. The last two lines in the following code segment create the database DOMjudge uses (using a DOMjudge utility).
+\begin{verbatim}
+cd domjudge-5.1.0/
+./configure --prefix=$HOME
+make domserver
+sudo make install-domserver
+cd ~/domserver/bin/
+./dj-setup-database genpass
+./dj-setup-database -u root -r install
+\end{verbatim}
+Okay now we need to let apache know how to run the webserver:
+\begin{verbatim}
+sudo cp ~/domserver/etc/apache.conf /etc/apache2/conf-available/domjudge.conf
+sudo a2dissite 000-default.conf
+sudo a2enconf domjudge 
+sudo apache2ctl graceful
+\end{verbatim}
+At this point DOMjudge should be running on your localhost. Open a browser and type `127.0.0.1/domjudge' in the URL bar and verify that it's online.
+\\\\
+Now it's time to get ride of the `/domjudge/' part of the URL. Well, we don't actually get rid of it. We just make sure that `127.0.0.1' also points to the same directory as `127.0.0.1/domjudge/'. To do this, first open the DOMjudge apache config file:
+\begin{verbatim}
+sudo vi /etc/apache2/conf-available/domjudge.conf
+\end{verbatim}
+Append the following to the top of the file:
+\begin{verbatim}
+Listen 0.0.0.0:80
+\end{verbatim}
+And scroll down a little bit until you see comments referring to making the root directory work. Follow the instructions (you'll just be uncommenting about 6-7 lines of code that are already there). After this, save the file and run the following command:
+\begin{verbatim}
+sudo apache2ctl graceful
+\end{verbatim}
+Finally, go in your browser to verify `127.0.0.1' takes you to the DOMjudge contest page.
+\subsection{Configuring the Webserver}
+TODO: Okay this should be the Chief Judge's (the guy who writes the problems) job. But both of you should be familiar with how to configure the webserver. (Adding problems, setting up a contest, setting up the practice contest, setting up users, setting up balloon users, etc...) Change admin password.
+\subsection{Configuring MySQL}
+\subsection{Configuring bind9}
+%TODO: make sure to add DNS to router.........
+\subsection{Notes}
+Error logs for Apache are found in:
+\begin{verbatim}
+/var/log/apache2/*
+\end{verbatim}
+and the ones for the DNS are somewhere in:
+\begin{verbatim}
+/var/log/syslog
+\end{verbatim}
+\section{Judge Machines}
+
+\section{Contestant Machines}
+
+\section{Problems to look out for}
+%UPS
+%blowing a fuse
+%eclipse is lame
+%clarifications
+%problem data
+%do a trial run
+%if something goes wrong, fix it
+%wiping the machines after the practice contest
+\end{document}

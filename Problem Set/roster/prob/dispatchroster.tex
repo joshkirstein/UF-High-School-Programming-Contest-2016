@@ -1,0 +1,54 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[left=0.85in,right=0.85in,top=0.80in,bottom=0.80in]{geometry}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{fmtcount}
+\usepackage{datetime}
+\usepackage[pdftex]{graphicx}
+\usepackage{fancyhdr}
+\usepackage{color}
+\usepackage{fancyvrb}
+\usepackage{tabu}
+\usepackage{xcolor}\newcommand{\squeezeup}{\vspace{-7mm}}
+\begin{document}
+\begin{center}
+{\Huge Problem ID: roster}\vspace{2 mm} \\	% Problem Letter
+{\huge Dispatch Roster}\vspace{2 mm} \\	% Problem Name
+\end{center}
+\setcounter{page}{14}
+\large{
+In another effort to enlist your services, the Gainesville Computer Company (GCC) decided that their truck dispatch roster needs to be computerized.\\\\
+Every day $N$ trucks are dispatched from the GCC warehouse (at different times), each headed to a different location; additionally, trucks may hold different amount of computers (some stores order different amounts!). More specifically, the $i$-th truck is dispatched at minute $t_i$ with a load of $k_i$ computers and takes exactly $s_i$ minutes to reach its target location.\\\\
+Now, the Gainesville Computer Company is interested in knowing how many computers are on the road at every point in time. Can you help them?
+}
+\vspace{7mm}\\
+\large{\bf{Input}}\vspace{2mm}\\
+The input will begin with a line containing a single positive integer, $t$, representing the number of test cases to process. Each test case will begin with two integers $N$ and $M$ ($1 \leq N \leq 100,000$, $1 \leq M \leq 100,000$); $N$ is the number of trucks that are going to be dispatched and $M$ is the amount of minutes the dispatch roster will keep track of. Following will be $N$ lines, each corresponding to one truck that is going to be dispatched. The $i$-th line is of the form ``$t_i$ $s_i$ $k_i$" ($s_i \geq 1$, $t_i \geq 1$, $s_i+t_i \leq M+1$, and $k_i \leq 10$), which have the same meaning as defined above.
+\vspace{3mm}\\
+\large{\bf{Output}}\vspace{2mm}\\
+For each test case print $M$ space-separated integers on a single line, the $i$-th integer of which should be the number of computers that are on the road at minute $i$. The output for each test case should be on its own line.
+\vspace{5mm}\\
+\bf{Sample Input} \hspace{52mm} \bf{Sample Output}\vspace{1mm}\\
+\begin{tabu*} to 475pt {|X[0r]|X[0l]|}
+\tabucline-
+\vspace{-\baselineskip} %needs to be placed here
+\begin{Verbatim}
+2
+4 5
+1 1 3
+2 1 5
+3 1 6
+1 5 10
+1 10
+4 2 10
+\end{Verbatim}
+&
+\vspace{-\baselineskip} %needs to be placed here
+\begin{Verbatim}
+13 15 16 10 10
+0 0 0 10 10 0 0 0 0 0
+\end{Verbatim}
+\\
+\tabucline-
+\end{tabu*}
+\end{document}
